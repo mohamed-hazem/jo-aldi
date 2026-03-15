@@ -20,7 +20,7 @@ class JoAldi:
         self.logger = setup_logger(str(log_file))
         
         # Init browser
-        self.browser = playwright.chromium.launch(headless=True)
+        self.browser = playwright.chromium.launch(headless=False)
         self.context = self.browser.new_context()
         self.page = self.context.new_page()
 
@@ -65,10 +65,14 @@ class JoAldi:
         self.login()
         
         while True:
-            if self.is_less_than_one_gb():
+            if (self.is_less_than_one_gb()):
                 self.add_one_gb()
             
-            time.sleep(30)
+            else:
+                time.sleep(30)
+                self.page.reload()
+                self._wait_for_page_load()
+            
 # --------------------------------------------------------------------- #
 
 def main(): 
