@@ -49,7 +49,7 @@ class JoAldi:
             unit = match.group(2)
             self.logger.info(f"Current data usage: {number} {unit}")
 
-            if (unit == "GB" and number == 1) or (unit == "MB"):
+            if (unit == "GB" and number == 0) or (unit == "MB"):
                 return True        
         return False
     
