@@ -42,15 +42,15 @@ class JoAldi:
 
     def is_less_than_one_gb(self) -> bool:
         usage_text = self.page.locator("text=von 25 GB").locator("..").inner_text()
-        match = re.search(r'Noch\s*(\d+)\s*([A-Za-z]+)\s*von', usage_text)
-
+        match = re.search(r'Noch\s*(\d+(?:[.,]\d+)?)\s*([A-Za-z]+)\s*von', usage_text)
+        
         if (match):
-            number = int(match.group(1))
+            number = float(match.group(1).replace(",", "."))
             unit = match.group(2)
             self.logger.info(f"Current data usage: {number} {unit}")
 
             if (unit == "GB" and number == 0) or (unit == "MB"):
-                return True        
+                return True
         return False
     
     def add_one_gb(self):
